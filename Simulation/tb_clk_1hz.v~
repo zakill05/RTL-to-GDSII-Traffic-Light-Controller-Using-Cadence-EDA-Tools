@@ -1,0 +1,44 @@
+
+`timescale 1ns/1ps
+
+module tb_clk_1hz();
+
+    // Khai báo các tín hi?u k?t n?i v?i module uut
+    reg clk_50mhz;
+    reg rst;
+    wire clk_1hz;
+
+    // Kh?i t?o module chia xung (UUT)
+    // Gi? nguyên MAX = 5 ?? th?y k?t qu? nhanh trong mô ph?ng
+    clk_1hz #( .MAX(5) ) uut (
+        .clk_50mhz(clk_50mhz),
+        .rst(rst),
+        .clk_1hz(clk_1hz)
+    );
+
+    // T?o xung clock 50MHz (Chu k? T = 20ns)
+    // C? m?i 10ns thì ??o tr?ng thái m?t l?n
+    initial begin
+        clk_50mhz = 0;
+        forever #1 clk_50mhz = ~clk_50mhz;
+    end
+
+    // K?ch b?n mô ph?ng
+    initial begin
+        // Kh?i t?o
+        rst = 1;
+        #40;          // Ch? 40ns
+        
+        rst = 0;      // Gi?i phóng Reset
+        
+        // Ch?y mô ph?ng trong 400ns ?? quan sát nhi?u chu k? clk_1hz
+      
+    end
+
+    // Giám sát tín hi?u trên Console
+    initial begin
+        $monitor("Time=%0t | rst=%b | cnt=%d | clk_1hz=%b", 
+                 $time, rst, uut.cnt, clk_1hz);
+    end
+
+endmodule

@@ -1,0 +1,18 @@
+-------------Tao cds.lib , hdl.var , worklib tren Terminal destop neu chua co--------------------
+
+B1: cd /home/buet/Documents/traffic_light
+
+B2: Tạo file cds.lib :
+	
+echo "INCLUDE $CDS_INST_DIR/tools/inca/files/cds.lib" > cds.lib
+echo "DEFINE worklib ./worklib" >> cds.lib
+
+B3: Tạo file hdl.var :
+
+echo "INCLUDE $CDS_INST_DIR/tools/inca/files/hdl.var" > hdl.var
+echo "DEFINE WORK worklib" >> hdl.var
+
+B4 : Tạo thư mục worklib:
+
+mkdir -p worklib
+

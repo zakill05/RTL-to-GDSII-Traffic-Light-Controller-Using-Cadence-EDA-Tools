@@ -1,0 +1,2 @@
+INCLUDE /home/buet/cadence/IC615//tools/inca/files/hdl.var
+DEFINE WORK worklib
