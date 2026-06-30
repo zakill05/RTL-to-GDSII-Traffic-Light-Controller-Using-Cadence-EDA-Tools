@@ -1,0 +1,36 @@
+# Top module
+set BASENAME top_module
+
+# 1. Fix OCV error trước
+setAnalysisMode -analysisType bcwc
+
+# 2. Chạy STA
+timeDesign -postRoute -reportOnly
+
+# 3. Reports đúng lệnh
+report_timing > Output/${BASENAME}_setup.rpt
+report_timing -early > Output/${BASENAME}_hold.rpt
+
+# Xem setup timing
+cat Output/${BASENAME}_setup.rpt
+
+# Xem hold timing
+cat Output/${BASENAME}_hold.rpt
+
+# Export SPEF
+rcOut -spef Output/${BASENAME}.spef
+
+# Export LEF
+lefOut Output/${BASENAME}.lef
+
+# Export SDC
+write_sdc Output/${BASENAME}.sdc
+
+#KIỂM TRA DRC  # Kiểm tra DRC routing
+verify_drc
+
+# Xuất report
+verify_drc -report output/drc.rpt
+
+# Kiểm tra connectivity (LVS nhẹ)
+verify_connectivity -report output/connectivity.rpt
